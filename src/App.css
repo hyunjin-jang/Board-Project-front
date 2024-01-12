@@ -20,11 +20,12 @@ body {
 }
 
  .login-container {
-  position:absolute;
+  /* position:absolute; */
   background: white;
   box-shadow: 0 0 10px 1px #000;
-  top: 5%;
-  left: 40%;
+  margin-top: 5rem;
+  margin-right: auto;
+  margin-left: auto;
   padding: 20px;
   border-radius: 8px;
   width: 350px;
@@ -82,11 +83,11 @@ body {
 
  /* 회원가입 CSS */
  .join-container {
-  position:absolute;
   background: white;
   box-shadow: 0 0 10px 1px #000;
-  top: 5%;
-  left: 40%;
+  margin-top: 5rem;
+  margin-right: auto;
+  margin-left: auto;
   padding: 20px;
   border-radius: 16px;
   width: 350px;
