@@ -13,7 +13,7 @@ export default function ProfileBox(){
 
   useEffect(()=>{
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.get('http://localhost:8080/user') 
+    axios.get('http://15.152.189.106:8080/user') 
     .then((response)=>{
       setUserNickName(response.data.userNickName)
       setUserBirth(response.data.userBirth)

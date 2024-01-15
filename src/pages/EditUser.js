@@ -22,7 +22,7 @@ export default function EditUser(){
 
   useEffect(()=>{
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.get('http://localhost:8080/user')
+    axios.get('http://15.152.189.106:8080/user')
     .then((response)=>{
       console.log(response.data)
       setUserId(response.data.userId)
@@ -36,7 +36,7 @@ export default function EditUser(){
 
   function editAct(){
     console.log(editInfo)
-    axios.put('http://localhost:8080/user', editInfo)
+    axios.put('http://15.152.189.106:8080/user', editInfo)
     .then((response)=>{
       console.log(response.data)
       navigate('/mypage')

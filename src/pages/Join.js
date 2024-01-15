@@ -25,7 +25,7 @@ export default function Join(){
 
   function joinAction(){
     if(isEmail(joinInfo.userEmail)){
-      axios.post("http://localhost:8080/user", joinInfo)
+      axios.post("http://15.152.189.106:8080/user", joinInfo)
       .then((response)=>{
         localStorage.setItem("authorization", response.headers['authorization'])
         dispatch(setJoinModal(false))

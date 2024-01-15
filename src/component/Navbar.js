@@ -18,7 +18,7 @@ function Navbar(){
   }
   
   function searchAction(){
-    axios.get('http://localhost:8080/posts/search/'+search)
+    axios.get('http://15.152.189.106:8080/posts/search/'+search)
     .then((response)=>{
       console.log(response.data)
       dispatch(setPostList(response.data))
@@ -28,7 +28,7 @@ function Navbar(){
   }
 
   function returnPost(){
-    axios.get("http://localhost:8080/posts")
+    axios.get("http://15.152.189.106:8080/posts")
     .then((response)=>{
       dispatch(setPostList(response.data))
     }).catch((error)=>{

@@ -18,7 +18,7 @@ export default function EditPost(){
 
   useEffect(()=>{
     
-    axios.get('http://localhost:8080/posts/'+(id))
+    axios.get('http://15.152.189.106:8080/posts/'+(id))
     .then((response)=>{
       setPostTitle(response.data.postTitle);
       setPostContent(response.data.postContent)
@@ -34,12 +34,12 @@ export default function EditPost(){
   const handleSubmit = async (e) =>{
     e.preventDefault();
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    await axios.post('http://localhost:8080/posts/image', files)
+    await axios.post('http://15.152.189.106:8080/posts/image', files)
     .then((response)=>{
       let ImageNames = response.data
       editPostDto.postImageNames = ImageNames
       
-      axios.put('http://localhost:8080/posts', editPostDto)
+      axios.put('http://15.152.189.106:8080/posts', editPostDto)
       .then((response)=>{
         console.log(response.data)
         navigate('/')

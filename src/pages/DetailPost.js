@@ -19,7 +19,7 @@ export default function DetailPost(){
   }
   
   useEffect(()=>{
-    axios.get('http://localhost:8080/posts/'+(id))
+    axios.get('http://15.152.189.106:8080/posts/'+(id))
     .then((response)=>{
       console.log(response.data.commentList)
       setPosting(response.data)
@@ -29,7 +29,7 @@ export default function DetailPost(){
     })
     if(localStorage.getItem('authorization')){
       axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-      axios.get('http://localhost:8080/user')
+      axios.get('http://15.152.189.106:8080/user')
       .then((response)=>{
         setLoginUserEmail(response.data.userEmail)
       })
@@ -37,7 +37,7 @@ export default function DetailPost(){
   }, [commentCount])
 
   function postDelete(){
-    axios.delete("http://localhost:8080/posts/"+(id))
+    axios.delete("http://15.152.189.106:8080/posts/"+(id))
     .then((response)=>{
       navigate(-1)
     }).catch((error)=>{
@@ -48,7 +48,7 @@ export default function DetailPost(){
   function commentAction(){
     console.log(WriteCommentDto)
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.post("http://localhost:8080/comment", WriteCommentDto)
+    axios.post("http://15.152.189.106:8080/comment", WriteCommentDto)
     .then((response)=>{
       setCommentCount(commentCount+1)
     })
@@ -63,7 +63,7 @@ export default function DetailPost(){
               images.map((imageName, id)=>{
                 return <img 
                   key={id} 
-                  src={`http://localhost:8080/posts/image/${imageName}`}
+                  src={`http://15.152.189.106:8080/posts/image/${imageName}`}
                   alt="Post"
                 />
               }):

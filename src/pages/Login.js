@@ -22,7 +22,7 @@ export default function Login(){
 
   async function loginAction(){
     if(isEmail(loginInfo.userEmail)){
-      axios.post("http://localhost:8080/login", loginInfo)
+      axios.post("http://15.152.189.106:8080/login", loginInfo)
       .then((response)=>{
         localStorage.setItem("authorization", response.headers['authorization'])
         dispatch(setLoginModal(false))

@@ -11,7 +11,7 @@ export default function PostList(){
   const [postCount] = useState(postList.length)
 
   useEffect(()=>{
-    axios.get("http://localhost:8080/posts")
+    axios.get("http://15.152.189.106:8080/posts")
     .then((response)=>{
       dispatch(setPostList(response.data))
     }).catch((error)=>{
@@ -29,7 +29,7 @@ export default function PostList(){
         <div className="post-list-img">
           {
             postContent.postImageNames ? 
-            <img src={`http://localhost:8080/posts/image/${postContent.postImageNames[0]}`} alt="Post" /> :
+            <img src={`http://15.152.189.106:8080/posts/image/${postContent.postImageNames[0]}`} alt="Post" /> :
             null
           }
         </div>
