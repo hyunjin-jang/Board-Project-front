@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoginModal } from '../store/store';
+import { setJoinModal, setLoginModal } from '../store/store';
 
 export default function Login(){
+  const API_URL = process.env.REACT_APP_API_URL
+
   const isEmail = (email) => {
     const emailRegex = 
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -22,7 +24,7 @@ export default function Login(){
 
   async function loginAction(){
     if(isEmail(loginInfo.userEmail)){
-      axios.post("http://15.152.189.106:8080/login", loginInfo)
+      axios.post(`${API_URL}/login`, loginInfo)
       .then((response)=>{
         localStorage.setItem("authorization", response.headers['authorization'])
         dispatch(setLoginModal(false))
@@ -49,7 +51,7 @@ export default function Login(){
     }}>
       <div className="login-container">
       <div className="clear"></div>
-      <h1 style={{float: "right", margin: "0px"}} onClick={()=>{ dispatch(setLoginModal(false)) }}>x</h1>
+      <h1 style={{float: "right", margin: "0px", cursor: "pointer"}} onClick={()=>{ dispatch(setLoginModal(false)) }}>x</h1>
       <div className="clear"></div>
       <div className="login-box">
         <h3 style={{marginTop: "0px"}}>Logo</h3>
@@ -70,7 +72,7 @@ export default function Login(){
         <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
         <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
         <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5>
-        <label>아직 Logo를 사용하고 있지 않으신가요?<span>가입하기</span></label>
+        <label>아직 게시판을 사용하고 있지 않으신가요?<b onClick={()=>{ dispatch(setJoinModal(true)); dispatch(setLoginModal(false)); }}>가입하기</b></label>
       </div>
     </div>
    </div>

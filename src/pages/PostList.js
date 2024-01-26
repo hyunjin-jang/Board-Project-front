@@ -2,16 +2,18 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setPostList } from "../store/store"
+import { setLoginModal, setPostList } from "../store/store"
 
 export default function PostList(){
+  const API_URL = process.env.REACT_APP_API_URL
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
   const postList = useSelector((state)=> {return state.postList})
   const [postCount] = useState(postList.length)
 
   useEffect(()=>{
-    axios.get("http://15.152.189.106:8080/posts")
+    axios.get(`${API_URL}/posts`)
     .then((response)=>{
       dispatch(setPostList(response.data))
     }).catch((error)=>{
@@ -29,7 +31,7 @@ export default function PostList(){
         <div className="post-list-img">
           {
             postContent.postImageNames ? 
-            <img src={`http://15.152.189.106:8080/posts/image/${postContent.postImageNames[0]}`} alt="Post" /> :
+            <img src={postContent.postImageNames[0]} alt="Post" /> :
             null
           }
         </div>
@@ -49,11 +51,11 @@ export default function PostList(){
           posting(postContent)
         ))}
         <div className="clear"></div>
-        <button onClick={()=>{ 
+        <button className="btn" onClick={()=>{ 
           if(localStorage.getItem('authorization') != null){
             navigate("/posts/write") 
           } else {
-            alert('로그인하세요')
+            dispatch(setLoginModal(true))
           }
           
         }}>글쓰기</button>

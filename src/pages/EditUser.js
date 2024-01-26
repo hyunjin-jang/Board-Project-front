@@ -3,7 +3,9 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function EditUser(){
+  const API_URL = process.env.REACT_APP_API_URL
   const navigate = useNavigate()
+  
   const [userId, setUserId] = useState()
   const [editNickName, setNickName] = useState()
   const [editBirth, setBirth] = useState()
@@ -22,7 +24,7 @@ export default function EditUser(){
 
   useEffect(()=>{
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.get('http://15.152.189.106:8080/user')
+    axios.get(`${API_URL}/user`)
     .then((response)=>{
       console.log(response.data)
       setUserId(response.data.userId)
@@ -36,7 +38,7 @@ export default function EditUser(){
 
   function editAct(){
     console.log(editInfo)
-    axios.put('http://15.152.189.106:8080/user', editInfo)
+    axios.put(`${API_URL}/user`, editInfo)
     .then((response)=>{
       console.log(response.data)
       navigate('/mypage')

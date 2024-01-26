@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function ProfileBox(){
+  const API_URL = process.env.REACT_APP_API_URL
   const navigate = useNavigate()
 
   const [userNickName, setUserNickName] = useState()
@@ -13,7 +14,7 @@ export default function ProfileBox(){
 
   useEffect(()=>{
     axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.get('http://15.152.189.106:8080/user') 
+    axios.get(`${API_URL}/user`) 
     .then((response)=>{
       setUserNickName(response.data.userNickName)
       setUserBirth(response.data.userBirth)

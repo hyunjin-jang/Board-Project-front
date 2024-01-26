@@ -3,11 +3,15 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 export default function EditPost(){
+  const API_URL = process.env.REACT_APP_API_URL
   const navigate = useNavigate()
+  
   const {id} = useParams()
   const [postTitle, setPostTitle] = useState()
   const [postContent, setPostContent] = useState()
   const [postId, setPostId] = useState(id)
+  const [loading, setLoading] = useState(false);
+  const [imageAlert, setImageAlert] =useState(false)
   const files = new FormData()
 
   const editPostDto = {
@@ -17,9 +21,9 @@ export default function EditPost(){
   }
 
   useEffect(()=>{
-    
-    axios.get('http://15.152.189.106:8080/posts/'+(id))
+    axios.get(`${API_URL}/posts/`+(id))
     .then((response)=>{
+      setPostId(response.data.postId)
       setPostTitle(response.data.postTitle);
       setPostContent(response.data.postContent)
     })
@@ -33,26 +37,36 @@ export default function EditPost(){
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    await axios.post('http://15.152.189.106:8080/posts/image', files)
-    .then((response)=>{
-      let ImageNames = response.data
-      editPostDto.postImageNames = ImageNames
-      
-      axios.put('http://15.152.189.106:8080/posts', editPostDto)
+    setLoading(true)
+    setImageAlert(false)
+    try {
+      axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
+      await axios.post(`${API_URL}/posts/image`, files)
       .then((response)=>{
-        console.log(response.data)
-        navigate('/')
+        let ImageNames = response.data
+        editPostDto.postImageNames = ImageNames
+        
+        axios.put(`${API_URL}/posts`, editPostDto)
+        .then((response)=>{
+          console.log(editPostDto)
+          console.log(response.data)
+          navigate('/')
+        }).catch((error)=>{
+          console.log(error + "  포스팅 저장 실패")
+        })
       }).catch((error)=>{
-        console.log(error + "  포스팅 저장 실패")
+        setImageAlert(true)
+        console.log(error + " 이미지 저장 실패함")
       })
-    }).catch((error)=>{
-      console.log(error + " 이미지 저장 실패함")
-    })
+    } finally {
+      setLoading(false)
+    }
   }
   
   return (
     <div className="write-container">
+      { loading ? <img src={process.env.PUBLIC_URL + '/Spinner-1s-200px.gif'} alt="Loading"/> : null }
+      { imageAlert ? <p>이미지를 포함시켜주세요</p> : null }
       <form onSubmit={ handleSubmit } className="write-box">
         <h5>제목</h5>
         <input className="write-title" value={postTitle} onChange={(e)=>{ setPostTitle(e.target.value) }}></input>

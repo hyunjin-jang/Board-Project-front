@@ -1,9 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom"
+import { setLoginModal } from "../store/store"
 
 export default function DetailPost(){
+  const API_URL = process.env.REACT_APP_API_URL
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  
   const {id} = useParams()
   const [posting, setPosting] = useState()
   const [images, setImages] = useState()
@@ -19,9 +24,8 @@ export default function DetailPost(){
   }
   
   useEffect(()=>{
-    axios.get('http://15.152.189.106:8080/posts/'+(id))
+    axios.get(`${API_URL}/posts/`+(id))
     .then((response)=>{
-      console.log(response.data.commentList)
       setPosting(response.data)
       setImages(response.data.postImageNames)
       setGetComment(response.data.commentList)
@@ -29,7 +33,7 @@ export default function DetailPost(){
     })
     if(localStorage.getItem('authorization')){
       axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-      axios.get('http://15.152.189.106:8080/user')
+      axios.get(`${API_URL}/user`)
       .then((response)=>{
         setLoginUserEmail(response.data.userEmail)
       })
@@ -37,7 +41,7 @@ export default function DetailPost(){
   }, [commentCount])
 
   function postDelete(){
-    axios.delete("http://15.152.189.106:8080/posts/"+(id))
+    axios.delete(`${API_URL}/posts/`+(id))
     .then((response)=>{
       navigate(-1)
     }).catch((error)=>{
@@ -46,12 +50,15 @@ export default function DetailPost(){
   }
 
   function commentAction(){
-    console.log(WriteCommentDto)
-    axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    axios.post("http://15.152.189.106:8080/comment", WriteCommentDto)
-    .then((response)=>{
-      setCommentCount(commentCount+1)
-    })
+    if(!(localStorage.getItem('authorization') == null)) {
+      axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
+      axios.post(`${API_URL}/comment`, WriteCommentDto)
+      .then((response)=>{
+        setCommentCount(commentCount+1)
+      })
+    } else {
+      dispatch(setLoginModal(true))
+    }
   }
 
   return (
@@ -63,7 +70,7 @@ export default function DetailPost(){
               images.map((imageName, id)=>{
                 return <img 
                   key={id} 
-                  src={`http://15.152.189.106:8080/posts/image/${imageName}`}
+                  src={imageName}
                   alt="Post"
                 />
               }):
@@ -73,7 +80,14 @@ export default function DetailPost(){
           <div className="selectImage">
             <button onClick={(e)=>{
               if(currentImage > 0){
-                currentImage = currentImage-500
+                if(document.body.clientWidth > 1200) {
+                  currentImage = currentImage-500
+                } else if(document.body.clientWidth > 768) {
+                  currentImage = currentImage-350
+                } else {
+                  currentImage = currentImage-332
+                }
+                
                 document.querySelector('.slide-container').style.transform='translateX(-'+currentImage+'px)'
               }
             }}>◀</button>
@@ -83,7 +97,13 @@ export default function DetailPost(){
               images.map((image, id)=>{
                 return (
                   <button key={id} onClick={()=>{
-                    currentImage = id*500
+                    if(document.body.clientWidth > 1200) {
+                      currentImage = id*500
+                    } else if(document.body.clientWidth > 768) {
+                      currentImage = id*350
+                    } else {
+                      currentImage = id*332
+                    }
                     document.querySelector('.slide-container').style.transform='translateX(-'+currentImage+'px)'
                   }}>{id+1}</button>
                 )
@@ -91,8 +111,15 @@ export default function DetailPost(){
               null
             }
             <button onClick={()=>{
-              if(currentImage < (images.length-1)*500){
-                currentImage = currentImage + 500
+              if(currentImage < (images.length-1)){
+                if(document.body.clientWidth > 1200) {
+                  currentImage = currentImage + 500
+                } else if(document.body.clientWidth > 768) {
+                  currentImage = currentImage + 350
+                } else {
+                  currentImage = currentImage + 332
+                }
+                
                 document.querySelector('.slide-container').style.transform='translateX(-'+currentImage+'px)'
               } else {
                 currentImage = 0
@@ -121,7 +148,7 @@ export default function DetailPost(){
               <h5>{posting.postCreateTime}</h5>
               <h5>{posting.userNickName}</h5>
             </> :
-            <p>Loding...</p>
+            <p>Loading...</p>
           }
           <div>
             <h3>댓글</h3>

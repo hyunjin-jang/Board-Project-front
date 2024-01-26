@@ -3,10 +3,13 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function WirtePost(){
+  const API_URL = process.env.REACT_APP_API_URL
   const navigate = useNavigate()
 
   const [postTitle, setPostTitle] = useState()
   const [postContent, setPostContent] = useState()
+  const [loading, setLoading] = useState(false);
+  const [imageAlert, setImageAlert] =useState(false)
   const files = new FormData()
 
   const writeDto = {
@@ -23,26 +26,35 @@ export default function WirtePost(){
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
-    await axios.post('http://15.152.189.106:8080/posts/image', files)
-    .then((response)=>{
-      let ImageNames = response.data
-      writeDto.postImageNames = ImageNames
-      
-      axios.post('http://15.152.189.106:8080/posts', writeDto)
+    setLoading(true)
+    setImageAlert(false)
+    try {
+      axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
+      await axios.post(`${API_URL}/posts/image`, files)
       .then((response)=>{
-        console.log(response.data)
-        navigate('/')
+        let ImageNames = response.data
+        writeDto.postImageNames = ImageNames
+        
+        axios.post(`${API_URL}/posts`, writeDto)
+        .then((response)=>{
+          console.log(response.data)
+          navigate('/')
+        }).catch((error)=>{
+          console.log(error + "  포스팅 저장 실패")
+        })
       }).catch((error)=>{
-        console.log(error + "  포스팅 저장 실패")
+        setImageAlert(true)
+        console.log(error + " 이미지 저장 실패함")
       })
-    }).catch((error)=>{
-      console.log(error + " 이미지 저장 실패함")
-    })
+    } finally {
+      setLoading(false)
+    }
   }
   
   return (
     <div className="write-container">
+      { loading ? <img src={process.env.PUBLIC_URL + '/Spinner-1s-200px.gif'} alt="Loading"/> : null }
+      { imageAlert ? <p>이미지를 포함시켜주세요</p> : null }
       <form onSubmit={ handleSubmit } className="write-box">
         <h5>제목</h5>
         <input className="write-title" onChange={(e)=>{ setPostTitle(e.target.value) }}></input>

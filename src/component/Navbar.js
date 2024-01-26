@@ -5,12 +5,15 @@ import { useState } from 'react';
 import axios from "axios";
 
 function Navbar(){
+  const API_URL = process.env.REACT_APP_API_URL
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [search, setSearch] = useState()
   const loginModal = useSelector((state)=> {return state.loginModal})
   const loginToken = useSelector((state)=> {return state.loginToken})
   const userToken = useSelector((state)=>{ return state.userToken })
+  
 
   function logoutAction(){
     localStorage.removeItem('authorization')
@@ -18,7 +21,7 @@ function Navbar(){
   }
   
   function searchAction(){
-    axios.get('http://15.152.189.106:8080/posts/search/'+search)
+    axios.get(`${API_URL}/posts/search/`+search)
     .then((response)=>{
       console.log(response.data)
       dispatch(setPostList(response.data))
@@ -28,7 +31,7 @@ function Navbar(){
   }
 
   function returnPost(){
-    axios.get("http://15.152.189.106:8080/posts")
+    axios.get(`${API_URL}/posts`)
     .then((response)=>{
       dispatch(setPostList(response.data))
     }).catch((error)=>{
@@ -41,7 +44,7 @@ function Navbar(){
       <h4 style={{float: "left"}} onClick={()=>{
         returnPost()
         navigate('/')
-      }}>Logo</h4>
+      }}>게시판</h4>
       <div className="auth">
         { localStorage.getItem('authorization') == null ? 
         <>

@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { setJoinModal, setUserToken } from '../store/store';
+import { setJoinModal, setLoginModal, setUserToken } from '../store/store';
 import axios from "axios";
 
 export default function Join(){
+  const API_URL = process.env.REACT_APP_API_URL
+
   const isEmail = (email) => {
     const emailRegex = 
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -25,7 +27,7 @@ export default function Join(){
 
   function joinAction(){
     if(isEmail(joinInfo.userEmail)){
-      axios.post("http://15.152.189.106:8080/user", joinInfo)
+      axios.post(`${API_URL}/user`, joinInfo)
       .then((response)=>{
         localStorage.setItem("authorization", response.headers['authorization'])
         dispatch(setJoinModal(false))
@@ -49,7 +51,7 @@ export default function Join(){
     }}>
       <div className="join-container">
         <div className="clear"></div>
-        <h1 style={{float: "right", margin: "0px"}} onClick={()=>{ dispatch(setJoinModal(false)) }}>x</h1>
+        <h1 style={{float: "right", margin: "0px", cursor: "pointer"}} onClick={()=>{ dispatch(setJoinModal(false)) }}>x</h1>
         <div className="clear"></div>
         <div className="join-box">
           <h3 style={{marginTop: "0px"}}>Logo</h3>
@@ -69,7 +71,7 @@ export default function Join(){
           <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
           <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
           <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5>
-          <label>이미 회원이신가요? <span>로그인</span></label>
+          <label>이미 회원이신가요? <b onClick={()=>{ dispatch(setJoinModal(false)); dispatch(setLoginModal(true)); }}>로그인</b></label>
         </div>
       </div>
     </div>
