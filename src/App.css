@@ -15,6 +15,14 @@ body {
   cursor: pointer;
  }
 
+ button {
+  cursor: pointer;
+ }
+
+ div {
+  box-sizing: border-box;
+ }
+
  .clear {
   clear: both;
  }
@@ -22,13 +30,16 @@ body {
  /* 로그인 CSS */
 .black-bg {
   background : rgba(0,0,0,0.5);
+  padding-top: 20vw;
   position : fixed;
+  top: -10%;
   width: 100vw;
-  height: 100%;
+  height: 200%;
+  z-index: 1;
 }
 
  .login-container {
-  /* position:absolute; */
+  
   background: white;
   box-shadow: 0 0 10px 1px #000;
   margin-top: 5rem;
@@ -37,7 +48,6 @@ body {
   padding: 20px;
   border-radius: 8px;
   width: 350px;
-  z-index: 6;
  }
 
  .login-box {
@@ -45,6 +55,13 @@ body {
   margin-left: auto;
   width: 55%;
   text-align: center;
+ }
+
+ .login-box button {
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
  }
 
  label {
@@ -111,6 +128,13 @@ body {
   text-align: center;
 }
 
+.join-box button {
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+ }
+
 /* 포스팅 리스트 CSS */
 .post-container {
   text-align: center;
@@ -122,7 +146,7 @@ body {
   margin-left: auto;
   margin-top: 3rem;
   padding: 1rem;
-  width: 70%;
+  width: 80%;
 }
 
 .post-content {
@@ -133,12 +157,10 @@ body {
     margin-left: 1%;
     margin-right: 1%;
     margin-top: 1rem;
-    width: 18%;
+    width: 14.6%;
     height: 250px;
     cursor: pointer;
   }
-
-
 
 .post-content h4 {
   overflow: hidden;
@@ -165,13 +187,26 @@ body {
   
 }
 
-.main-box button {
+.write-btn {
+  margin-top: 10px;
   background: black;
   color: white;
   border-radius: 8px;
   padding: 8px 16px;
   font-weight: bold;
   font-size: 16px;
+}
+
+.page-btn {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background: black;
+  border-radius: 7px;
+  padding: 4px 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 /* 포스팅 작성 CSS */
@@ -198,14 +233,6 @@ body {
   height: 20rem;
   padding: 8px 16px;
   border-radius: 8px;
-}
-
-.write-btn {
-  background: #E32C2C;
-  color: white; 
-  display: inline-block; 
-  padding: 8px 16px;
-  border-radius: 15px;
 }
 
  /* 마이페이지 정보 CSS */
@@ -307,48 +334,67 @@ body {
   margin-bottom: 0px;
  }
  
- .post-commentList {
-  width: 100%;
-  float: left;
- }
- 
- .comment-btn {
-  width: 27%;
-  background: black;
-  color: white;
-  border-radius: 30px;
-  padding: 8px 16px;
-  border-radius: 0px 8px 8px 0px;
- }
- 
- .comment-input {
-  box-sizing: border-box;
-  width: 73%;
-  padding: 8px 16px;
-  border-radius: 8px 0px 0px 8px;
-  margin-top: 1rem;
+ /* 댓글 CSS */
+ .comment-container h3 {
   margin-bottom: 10px;
  }
- 
- .post-commentList img {
-  background: blue;
-  padding: 10px;
-  border-radius: 30px;
-  width: 16px;
+
+ .comment-list {
+  margin-bottom: 10px;
+ }
+
+ .comment-content h5 {
+  float: left;
+  margin-top: 0px;
+  margin-bottom: 0px;
   margin-right: 5px;
- }
- 
- .post-commentList h5 {
-  float: left;
-  margin-top: 0;
-  font-size: 15px;
- }
- 
- .post-commentList label {
-  float: left;
-  margin-top: 0;
-  margin-left: 5px;
   font-size: 14px;
+ }
+
+ .comment-content p {
+  float: left;
+  margin-top: 1px;
+  margin-bottom: 0px;
+  font-size: 13px;
+ }
+
+ .comment-btn {
+  float: right;
+  padding: 0px;
+  background-color: #eee;
+ }
+
+ .comment-btn button{
+  font-size: 12px;
+  float: right;
+  font-weight: bold;
+  border: none;
+ }
+
+ .comment-input {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 0px;
+  width: 100%;
+ }
+
+ .comment-input input {
+  position: relative;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 7px;
+  font-size: 13px;
+ }
+
+ .comment-input button {
+  position: absolute;
+  right: 3px;
+  top: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  background: white;
+  border: none;
  }
  
  @media screen and (max-width : 1200px) {
@@ -444,3 +490,5 @@ body {
     height: 250px;
   }
  }
+
+ 

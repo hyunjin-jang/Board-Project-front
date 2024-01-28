@@ -67,10 +67,10 @@ export default function Join(){
             <input type="date" onChange={(e)=>{ setJoinBirth(e.target.value) }}></input>
             <h5 className="btn" style={{background: "#E32C2C", color: "white"}} onClick={ joinAction }>가입하기</h5>
           </form>
-          <h5>또는</h5>
+          {/* <h5>또는</h5>
           <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
           <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
-          <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5>
+          <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5> */}
           <label>이미 회원이신가요? <b onClick={()=>{ dispatch(setJoinModal(false)); dispatch(setLoginModal(true)); }}>로그인</b></label>
         </div>
       </div>

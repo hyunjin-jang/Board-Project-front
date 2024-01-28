@@ -60,12 +60,23 @@ const postList = createSlice({
   }
 })
 
+const commentList = createSlice({
+  name : 'commentList',
+  initialState : [],
+  reducers : {
+    setCommentList(state, action){
+      return [...action.payload]
+    }
+  }
+})
+
 export const { setUserToken} = userToken.actions
 export const { setLoginToken } = loginToken.actions
 export const { setLoginModal } = loginModal.actions
 export const { setJoinModal } = joinModal.actions
 export const { setPostModal } = postModal.actions
 export const { setPostList } = postList.actions
+export const { setCommentList } = commentList.actions
 
 const store = configureStore({
   reducer: { 
@@ -74,7 +85,8 @@ const store = configureStore({
     loginToken : loginToken.reducer,
     joinModal : joinModal.reducer,
     postModal : postModal.reducer,
-    postList : postList.reducer
+    postList : postList.reducer,
+    commentList : commentList.reducer
   }
 }) 
 

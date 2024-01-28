@@ -1,20 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom"
-import { setLoginModal } from "../store/store"
+import { setLoginModal, setCommentList } from "../store/store"
 
 export default function DetailPost(){
   const API_URL = process.env.REACT_APP_API_URL
   const dispatch = useDispatch()
   const navigate = useNavigate()
   
+  const commentList = useSelector((state)=> {return state.commentList})
   const {id} = useParams()
   const [posting, setPosting] = useState()
   const [images, setImages] = useState()
-  const [getComment, setGetComment] = useState()
   const [comment, setComment] = useState()
-  const [commentCount, setCommentCount] = useState()
+  const [commentCount, setCommentCount] = useState(commentList.length)
   const [loginUserEmail, setLoginUserEmail] = useState()
   let currentImage = 0
 
@@ -28,8 +28,7 @@ export default function DetailPost(){
     .then((response)=>{
       setPosting(response.data)
       setImages(response.data.postImageNames)
-      setGetComment(response.data.commentList)
-      setCommentCount(response.data.commentList.length)
+      dispatch(setCommentList(response.data.commentList))
     })
     if(localStorage.getItem('authorization')){
       axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
@@ -49,7 +48,7 @@ export default function DetailPost(){
     })
   }
 
-  function commentAction(){
+  function commentWrite(){
     if(!(localStorage.getItem('authorization') == null)) {
       axios.defaults.headers.common.Authorization = localStorage.getItem('authorization')
       axios.post(`${API_URL}/comment`, WriteCommentDto)
@@ -150,22 +149,46 @@ export default function DetailPost(){
             </> :
             <p>Loading...</p>
           }
-          <div>
-            <h3>댓글</h3>
-            <input className="comment-input" placeholder="댓글을 적어보세요" onChange={(e)=>{ setComment(e.target.value) }}/>
-            <button className="comment-btn" onClick={ commentAction }>작성</button>
-            {
-            posting ?
-            getComment.map((comment, id)=>{
-              return (
-                <div>
-                  <p>{comment.commentContent} <span>{comment.user.userNickName}</span></p>
-                </div>
-              )
-            }):
-            null
+          
+          <div className="comment-container">
+            <h3>Comment</h3>
+            <div className="comment-input">
+              <input type="text" placeholder="댓글을 적어보세요" onChange={(e)=>{ setComment(e.target.value) }}></input>
+              <button onClick={ commentWrite }>작성</button>
+            </div>
+            { posting ?
+              commentList.map((content, i)=>{
+                return (
+                  <div className="comment-list">  
+                    <div className="comment-content">
+                      <h5>{content.user.userNickName}</h5>
+                      <p>{content.commentContent}</p>
+                    </div>
+                    <div className="comment-btn">
+                      {
+                        content.user.userEmail == loginUserEmail ?
+                        <button onClick={ 
+                          ()=>{
+                            console.log(`${API_URL}/comment/delete/${content.commentId}`)
+                            axios.delete(`${API_URL}/comment/delete/${content.commentId}`)
+                            .then((response)=>{
+                              setCommentCount(commentCount-1)
+                              console.log(response.data)
+                            }).catch((err)=>{
+                              console.log(err)
+                            })
+                          }
+                        }>삭제</button> : null
+                      }
+                      
+                    </div>
+                    <div className="clear"></div>
+                  </div>
+                )
+              }) : null
             }
           </div>
+
         </div>
       </div>
     </div>

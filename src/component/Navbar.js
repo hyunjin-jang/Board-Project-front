@@ -1,7 +1,7 @@
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { setJoinModal, setLoginModal, setPostList } from '../store/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from "axios";
 
 function Navbar(){
@@ -13,7 +13,7 @@ function Navbar(){
   const loginModal = useSelector((state)=> {return state.loginModal})
   const loginToken = useSelector((state)=> {return state.loginToken})
   const userToken = useSelector((state)=>{ return state.userToken })
-  
+  const [curPage, setCurPage] = useState(0)
 
   function logoutAction(){
     localStorage.removeItem('authorization')
@@ -31,9 +31,9 @@ function Navbar(){
   }
 
   function returnPost(){
-    axios.get(`${API_URL}/posts`)
+    axios.get(`${API_URL}/post/${0}`)
     .then((response)=>{
-      dispatch(setPostList(response.data))
+      dispatch(setPostList(response.data.content))
     }).catch((error)=>{
       console.log(error)
     })

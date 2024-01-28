@@ -68,10 +68,10 @@ export default function Login(){
           <h5 className="btn" style={{background: "#E32C2C", color: "white"}}
             onClick={ loginAction }>로그인</h5>
         </form>
-        <h5>또는</h5>
+        {/* <h5>또는</h5>
         <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
         <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
-        <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5>
+        <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5> */}
         <label>아직 게시판을 사용하고 있지 않으신가요?<b onClick={()=>{ dispatch(setJoinModal(true)); dispatch(setLoginModal(false)); }}>가입하기</b></label>
       </div>
     </div>

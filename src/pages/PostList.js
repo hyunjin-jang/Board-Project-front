@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { setLoginModal, setPostList } from "../store/store"
+import { setLoginModal, setPostList, setCurPage } from "../store/store"
 
 export default function PostList(){
   const API_URL = process.env.REACT_APP_API_URL
@@ -11,15 +11,23 @@ export default function PostList(){
   
   const postList = useSelector((state)=> {return state.postList})
   const [postCount] = useState(postList.length)
+  const [totalPage, setTotalPage] = useState(0)
+  const [curPage, setCurPage] = useState(0)
+  let totalPageArray = []
 
   useEffect(()=>{
-    axios.get(`${API_URL}/posts`)
+    axios.get(`${API_URL}/post/${curPage}`)
     .then((response)=>{
-      dispatch(setPostList(response.data))
+      setTotalPage(response.data.totalPages)
+      dispatch(setPostList(response.data.content))
     }).catch((error)=>{
       console.log(error)
     })
-  }, [postCount])
+  }, [postCount, curPage])
+
+  for(let i=0; i < totalPage; i++){
+    totalPageArray.push(i+1)
+  }
 
   function posting(postContent){
     return (
@@ -51,7 +59,18 @@ export default function PostList(){
           posting(postContent)
         ))}
         <div className="clear"></div>
-        <button className="btn" onClick={()=>{ 
+
+        <div>
+          {
+            totalPageArray.map((pageNum, i)=>{
+              return (<button key={i} className="page-btn" onClick={()=>{
+                setCurPage(pageNum-1)
+              }}>{ pageNum }</button>)
+            })
+          }
+        </div>
+
+        <button className="write-btn" onClick={()=>{ 
           if(localStorage.getItem('authorization') != null){
             navigate("/posts/write") 
           } else {

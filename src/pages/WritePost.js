@@ -53,7 +53,11 @@ export default function WirtePost(){
   
   return (
     <div className="write-container">
-      { loading ? <img src={process.env.PUBLIC_URL + '/Spinner-1s-200px.gif'} alt="Loading"/> : null }
+      { loading ? 
+        <div className="black-bg">
+          <img src={process.env.PUBLIC_URL + '/Spinner-1.3s-197px.gif'} alt="Loading"/> 
+        </div>
+        : null }
       { imageAlert ? <p>이미지를 포함시켜주세요</p> : null }
       <form onSubmit={ handleSubmit } className="write-box">
         <h5>제목</h5>
