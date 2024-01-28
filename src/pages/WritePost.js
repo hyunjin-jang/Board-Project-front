@@ -58,12 +58,13 @@ export default function WirtePost(){
           <img src={process.env.PUBLIC_URL + '/Spinner-1.3s-197px.gif'} alt="Loading"/> 
         </div>
         : null }
-      { imageAlert ? <p>이미지를 포함시켜주세요</p> : null }
+      
       <form onSubmit={ handleSubmit } className="write-box">
         <h5>제목</h5>
         <input className="write-title" onChange={(e)=>{ setPostTitle(e.target.value) }}></input>
         <h5>내용</h5>
         <textarea onChange={(e)=>{ setPostContent(e.target.value) }}/>
+        { imageAlert ? <p className="img-error">이미지를 포함시켜주세요!</p> : null }
         <br/>
         <input type="file" multiple name="files" onChange={ handleImageUpload }/>
         <br/>

@@ -235,6 +235,11 @@ body {
   border-radius: 8px;
 }
 
+.img-error {
+  color: red;
+  font-weight: bold;
+}
+
  /* 마이페이지 정보 CSS */
  .mypage-container {
   /* border: 1px solid black; */
