@@ -59,11 +59,11 @@ export default function EditUser(){
           <div className="profile-img">
             <img src="https://kormedi.com/wp-content/uploads/2022/04/ck_tica1010005154_l-580x387.jpg"/>
           </div>
-          <h3>닉네임 : <input value={ editNickName } onChange={(e)=>{setNickName(e.target.value)}}></input></h3>
-          <h3>생년월일 : {editBirth}</h3>
-          <h3>이메일 : {editEmail}</h3>
-          <h3>전화번호 : <input value={ editPhone } onChange={(e)=>{setPhone(e.target.value)}}></input></h3>
-          <h3>주소 : <input value={ editAddress } onChange={(e)=>{setAddress(e.target.value)}}></input> </h3>
+          <h3>ニックネーム : <input value={ editNickName } onChange={(e)=>{setNickName(e.target.value)}}></input></h3>
+          <h3>生年月日 : {editBirth}</h3>
+          <h3>メール : {editEmail}</h3>
+          <h3>携帯番号 : <input value={ editPhone } onChange={(e)=>{setPhone(e.target.value)}}></input></h3>
+          <h3>住所 : <input value={ editAddress } onChange={(e)=>{setAddress(e.target.value)}}></input> </h3>
           <button onClick={ editAct }>수정</button>
         </div>
       </div>

@@ -60,15 +60,15 @@ export default function WirtePost(){
         : null }
       
       <form onSubmit={ handleSubmit } className="write-box">
-        <h5>제목</h5>
+        <h5>タイトル</h5>
         <input className="write-title" onChange={(e)=>{ setPostTitle(e.target.value) }}></input>
-        <h5>내용</h5>
+        <h5>内容</h5>
         <textarea onChange={(e)=>{ setPostContent(e.target.value) }}/>
-        { imageAlert ? <p className="img-error">이미지를 포함시켜주세요!</p> : null }
+        { imageAlert ? <p className="img-error">イメージを含めてください!</p> : null }
         <br/>
         <input type="file" multiple name="files" onChange={ handleImageUpload }/>
         <br/>
-        <button className="write-btn" type="submit">작성하기</button>
+        <button className="write-btn" type="submit">作成</button>
       </form>
     </div>
   )

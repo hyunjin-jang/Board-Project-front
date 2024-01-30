@@ -54,24 +54,24 @@ export default function Join(){
         <h1 style={{float: "right", margin: "0px", cursor: "pointer"}} onClick={()=>{ dispatch(setJoinModal(false)) }}>x</h1>
         <div className="clear"></div>
         <div className="join-box">
-          <h3 style={{marginTop: "0px"}}>Logo</h3>
-          <h3>더 많은 내용을 보고려면 로그인하세요.</h3>
+          <h3 style={{marginTop: "0px"}}>POST</h3>
+          <h3>会員登録すると<br/>もっと、色んな機能が使えます。</h3>
           <form>
-            <label>이메일</label>
+            <label>メール</label>
             <input onChange={(e)=>{ setJoinUserEmail(e.target.value) }}></input>
-            <label>비밀번호</label>
+            <label>パスワード</label>
             <input type="password" onChange={(e)=>{ setJoinPassword(e.target.value) }}></input>
-            <label>닉네임</label>
+            <label>ニックネーム</label>
             <input onChange={(e)=>{ setJoinUserNickName(e.target.value) }}></input>
-            <label>생년월일</label>
+            <label>生年月日</label>
             <input type="date" onChange={(e)=>{ setJoinBirth(e.target.value) }}></input>
-            <h5 className="btn" style={{background: "#E32C2C", color: "white"}} onClick={ joinAction }>가입하기</h5>
+            <h5 className="btn" style={{background: "#E32C2C", color: "white"}} onClick={ joinAction }>登録</h5>
           </form>
           {/* <h5>또는</h5>
           <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
           <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
           <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5> */}
-          <label>이미 회원이신가요? <b onClick={()=>{ dispatch(setJoinModal(false)); dispatch(setLoginModal(true)); }}>로그인</b></label>
+          <label>すでに会員ですか? <b onClick={()=>{ dispatch(setJoinModal(false)); dispatch(setLoginModal(true)); }}>ログイン</b></label>
         </div>
       </div>
     </div>

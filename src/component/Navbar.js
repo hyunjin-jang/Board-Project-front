@@ -44,20 +44,20 @@ function Navbar(){
       <h4 style={{float: "left"}} onClick={()=>{
         returnPost()
         navigate('/')
-      }}>게시판</h4>
+      }}>POST</h4>
       <div className="auth">
         { localStorage.getItem('authorization') == null ? 
         <>
-          <h4 onClick={()=>{ dispatch(setJoinModal(true)) }}>회원가입</h4>
-          <h4 onClick={()=>{ dispatch(setLoginModal(true)) }}>로그인</h4>
+          <h4 onClick={()=>{ dispatch(setJoinModal(true)) }}>会員登録</h4>
+          <h4 onClick={()=>{ dispatch(setLoginModal(true)) }}>ログイン</h4>
         </> :
         <>
-          <h4 onClick={ logoutAction }>로그아웃</h4>
-          <h4 onClick={()=>{ navigate("/mypage") }}>마이페이지</h4>
+          <h4 onClick={ logoutAction }>ログアウト</h4>
+          <h4 onClick={()=>{ navigate("/mypage") }}>MyPage</h4>
         </>
         }
-        <h4 onClick={ searchAction }>검색</h4>
-        <input placeholder="검색" onChange={(e)=>{ setSearch(e.target.value) }}></input>
+        <h4 onClick={ searchAction }>🔍</h4>
+        <input placeholder="Search" onChange={(e)=>{ setSearch(e.target.value) }}></input>
       </div>
       <div className="clear"></div>
     </div>

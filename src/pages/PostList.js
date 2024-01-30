@@ -45,7 +45,7 @@ export default function PostList(){
         </div>
         <div className="post-list-context">
           <h4>{postContent.postTitle}</h4>
-          <h5>작성자 {postContent.user.userNickName}</h5>
+          <h5>作成者 {postContent.user.userNickName}</h5>
         </div>
       </div>
     )
@@ -77,7 +77,7 @@ export default function PostList(){
             dispatch(setLoginModal(true))
           }
           
-        }}>글쓰기</button>
+        }}>作成</button>
       </div> 
     </div>
   )

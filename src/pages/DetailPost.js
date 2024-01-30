@@ -131,8 +131,8 @@ export default function DetailPost(){
           { posting ?
             posting.userEmail == loginUserEmail ?
             <>
-              <button onClick={()=>{ navigate('/posts/edit/'+id) }}>수정</button>
-              <button onClick={postDelete}>삭제</button> 
+              <button onClick={()=>{ navigate('/posts/edit/'+id) }}>修正</button>
+              <button onClick={postDelete}>削除</button> 
             </>
             :
             null
@@ -154,7 +154,7 @@ export default function DetailPost(){
             <h3>Comment</h3>
             <div className="comment-input">
               <input type="text" placeholder="댓글을 적어보세요" onChange={(e)=>{ setComment(e.target.value) }}></input>
-              <button onClick={ commentWrite }>작성</button>
+              <button onClick={ commentWrite }>✏️</button>
             </div>
             { posting ?
               commentList.map((content, i)=>{
@@ -178,7 +178,7 @@ export default function DetailPost(){
                               console.log(err)
                             })
                           }
-                        }>삭제</button> : null
+                        }>削除</button> : null
                       }
                       
                     </div>

@@ -54,25 +54,25 @@ export default function Login(){
       <h1 style={{float: "right", margin: "0px", cursor: "pointer"}} onClick={()=>{ dispatch(setLoginModal(false)) }}>x</h1>
       <div className="clear"></div>
       <div className="login-box">
-        <h3 style={{marginTop: "0px"}}>Logo</h3>
-        <h3>더 많은 내용을 보고려면 로그인하세요.</h3>
+        <h3 style={{marginTop: "0px"}}>POST</h3>
+        <h3>もっと、色んな機能を使うためにはログインしてください。</h3>
         <form>
-          <label>이메일</label>
+          <label>メール</label>
           <input onChange={(e)=>{ setUserEmail(e.target.value) }}></input>
-          <label>비밀번호</label>
+          <label>パスワード</label>
           <input type='password' onChange={(e)=>{ setPassword(e.target.value) }}></input>
-          <label style={{fontWeight: "bold"}}>비밀번호를 잊으셨나요?</label>
+          <label style={{fontWeight: "bold"}}>パスワードをお忘れですか？</label>
 
           <div id='login-error'></div>
 
           <h5 className="btn" style={{background: "#E32C2C", color: "white"}}
-            onClick={ loginAction }>로그인</h5>
+            onClick={ loginAction }>ログイン</h5>
         </form>
         {/* <h5>또는</h5>
         <h5 className="btn" style={{background: "#2C80DE", color: "white"}}>페북 로그인</h5>
         <h5 className="btn" style={{background: "white", color: "#323232", border: "1px solid #323232"}}>구글 로그인</h5>
         <h5 className="btn" style={{background: "#21C148", color: "white"}}>라인 로그인</h5> */}
-        <label>아직 게시판을 사용하고 있지 않으신가요?<b onClick={()=>{ dispatch(setJoinModal(true)); dispatch(setLoginModal(false)); }}>가입하기</b></label>
+        <label>まだ、会員ではないですか?<b onClick={()=>{ dispatch(setJoinModal(true)); dispatch(setLoginModal(false)); }}>登録</b>する</label>
       </div>
     </div>
    </div>
