@@ -4,25 +4,25 @@ export default function MyPostBox(){
   const postList = useSelector((state)=>{return state.postList})
 
   return (
-    <div className="myposts-box">
+    <div className="profile-box">
       <div className="profile-top">
         <div className="clear"></div>
-        <h3 style={{ float:"left" }}>My Post</h3>
+        <h2 style={{ float:"left" }}>내가 쓴 포스트</h2>
         <div className="clear"></div>
       </div>
-      <div className="post-list">
-          {
-            postList.map((post)=>{
-              console.log(post.user.userNickName)
-              if(post.user.userNickName == "admin"){
-                return (
-                  <div className="myposts">
-                    <h5>{post.postTitle}</h5>
-                  </div>
-                )
-              }
-            })
-          }
+      <div className="profile-middle">
+        {
+          postList.map((post, i)=>{
+            return (
+              <div className="mypost-content">
+                <b>{ post } </b>
+                <button>삭제</button>
+                <button>수정</button>
+                <div className="clear"></div> 
+              </div>
+           )
+        })
+        }
       </div>
     </div>
   )
