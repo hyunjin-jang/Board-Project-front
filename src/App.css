@@ -287,19 +287,25 @@ body {
 }
 
  /* 내가 작성한 포스트 CSS */
- .myposts-box {
-  background: white;
-  border-radius: 30px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 3rem;
-  width: 70%;
- }
- 
- .myposts {
-  padding-left: 1rem;
-  text-align: left;
- }
+ .mypost-content {
+  border-bottom: 2px solid black;
+}
+
+.mypost-content b{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: left;
+}
+
+.mypost-content button{
+  float: right;
+  background-color: black;
+  color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 4px 8px;
+  border-radius: 7px;
+}
 
  /* 포스트 디테일 css */
  .detail-box {
